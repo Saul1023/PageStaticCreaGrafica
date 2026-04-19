@@ -6,31 +6,46 @@ import productsHtml from './components/products.html?raw'
 import footerHtml from './components/footer.html?raw'
 import chatbotHtml from './components/chatbot.html?raw'
 
+// ─── Configuración de Modo Oscuro ─────────────────────────────────────────────
+if (localStorage.theme === 'dark' || (!('theme' in localStorage) && window.matchMedia('(prefers-color-scheme: dark)').matches)) {
+    document.documentElement.classList.add('dark');
+} else {
+    document.documentElement.classList.remove('dark');
+}
+
 // ─── Datos de productos ───────────────────────────────────────────────────────
 const products = {
     parejas: [
-        { name: "Taza Pareja Romántica", img: "./images/pareja.jpg", price: 22 },
-        { name: "Taza Pareja Elegante", img: "./images/pareja2.jpg", price: 22 },
-        { name: "Taza Pareja Divertida", img: "./images/Pareja3.jpg", price: 22 },
-        { name: "Taza Pareja Moderna", img: "./images/Pareja4.jpg", price: 22 },
-        { name: "Taza Pareja Clásica", img: "./images/Pareja5.jpg", price: 22 },
-        { name: "Taza Pareja Original", img: "./images/pareja6.jpg", price: 22 }
+        { name: "Taza Pareja Romántica", img: "./images/pareja.jpg", price: 22, description: "Taza de cerámica 11oz." },
+        { name: "Taza Pareja Elegante", img: "./images/pareja2.jpg", price: 22, description: "Taza de cerámica 11oz." },
+        { name: "Taza Pareja Divertida", img: "./images/Pareja3.jpg", price: 22, description: "Taza de cerámica 11oz." },
+        { name: "Taza Pareja Moderna", img: "./images/Pareja4.jpg", price: 22, description: "Taza de cerámica 11oz." },
+        { name: "Taza Pareja Clásica", img: "./images/Pareja5.jpg", price: 22, description: "Taza de cerámica 11oz." },
+        { name: "Taza Pareja Original", img: "./images/pareja6.jpg", price: 22, description: "Taza de cerámica 11oz." }
     ],
     ninos: [
-        { name: "Taza Niño Divertida", img: "./images/niño1.jpg", price: 22 },
-        { name: "Taza Niño Colorida", img: "./images/niño2.jpg", price: 22 },
-        { name: "Taza Niño Animado", img: "./images/niño3.jpg", price: 22 },
-        { name: "Taza Niño Educativo", img: "./images/niño4.jpg", price: 22 },
-        { name: "Taza Niño Personalizada", img: "./images/niño5.jpg", price: 22 },
-        { name: "Taza Niño Original", img: "./images/niño6.jpg", price: 22 }
+        { name: "Taza Niño Divertida", img: "./images/niño1.jpg", price: 22, description: "Taza de cerámica 11oz." },
+        { name: "Taza Niño Colorida", img: "./images/niño2.jpg", price: 22, description: "Taza de cerámica 11oz." },
+        { name: "Taza Niño Animado", img: "./images/niño3.jpg", price: 22, description: "Taza de cerámica 11oz." },
+        { name: "Taza Niño Educativo", img: "./images/niño4.jpg", price: 22, description: "Taza de cerámica 11oz." },
+        { name: "Taza Niño Personalizada", img: "./images/niño5.jpg", price: 22, description: "Taza de cerámica 11oz." },
+        { name: "Taza Niño Original", img: "./images/niño6.jpg", price: 22, description: "Taza de cerámica 11oz." }
     ],
     graduacion: [
-        { name: "Taza Graduación Elegante", img: "./images/Graduado.jpg", price: 22 },
-        { name: "Taza Graduación Clásica", img: "./images/Graduado2.jpg", price: 22 },
-        { name: "Taza Graduación Moderna", img: "./images/Graduado3.jpg", price: 22 },
-        { name: "Taza Graduación Personalizada", img: "./images/Graduado4.jpg", price: 22 },
-        { name: "Taza Graduación Original", img: "./images/Graduado5.jpg", price: 22 },
-        { name: "Taza Graduación Especial", img: "./images/Graduado6.jpg", price: 22 }
+        { name: "Taza Graduación Elegante", img: "./images/Graduado.jpg", price: 22, description: "Taza de cerámica 11oz." },
+        { name: "Taza Graduación Clásica", img: "./images/Graduado2.jpg", price: 22, description: "Taza de cerámica 11oz." },
+        { name: "Taza Graduación Moderna", img: "./images/Graduado3.jpg", price: 22, description: "Taza de cerámica 11oz." },
+        { name: "Taza Graduación Personalizada", img: "./images/Graduado4.jpg", price: 22, description: "Taza de cerámica 11oz." },
+        { name: "Taza Graduación Original", img: "./images/Graduado5.jpg", price: 22, description: "Taza de cerámica 11oz." },
+        { name: "Taza Graduación Especial", img: "./images/Graduado6.jpg", price: 22, description: "Taza de cerámica 11oz." }
+    ],
+    poleras: [
+        { name: "Polera Diseño Abstracto", img: "./images/Polera_abstracta.jpg", price: 90, description: "Polera tacto algodón, sublimado full color." },
+        { name: "Polera Estilo Urbano", img: "./images/Polera_urbana.jpg", price: 90, description: "Polera tacto algodón, sublimado full color." },
+        { name: "Polera Minimalista", img: "./images/Polera_minimalista.jpg", price: 95, description: "Polera tacto algodón, sublimado full color." },
+        { name: "Polera Frase Motivadora", img: "./images/Polera_frase.jpg", price: 90, description: "Polera tacto algodón, sublimado full color." },
+        { name: "Polera Gráfica Retro", img: "./images/Polera_grafica_retro.jpg", price: 95, description: "Polera tacto algodón, sublimado full color." },
+        { name: "Polera Logo Personalizado", img: "./images/Polera_logo.jpg", price: 90, description: "Polera tacto algodón, sublimado full color." }
     ]
 };
 
@@ -40,28 +55,80 @@ function injectComponent(selector, htmlContent) {
     if (element) element.innerHTML = htmlContent;
 }
 
+// ─── Lazy Loading de Imágenes ─────────────────────────────────────────────────
+function initLazyLoading() {
+    const lazyImages = document.querySelectorAll('.lazy-img');
+
+    const imageObserver = new IntersectionObserver((entries, observer) => {
+        entries.forEach(entry => {
+            if (entry.isIntersecting) {
+                const img = entry.target;
+                // Al terminar de descargar la imagen real, quitamos el desenfoque
+                img.onload = () => {
+                    img.classList.remove('blur-md', 'scale-105');
+                };
+                // Asignamos la ruta real al atributo src
+                img.src = img.getAttribute('data-src');
+                observer.unobserve(img); // Dejamos de observarla
+            }
+        });
+    }, { rootMargin: '50px 0px' }); // Comienza a cargar 50px antes de entrar en pantalla
+
+    lazyImages.forEach(img => imageObserver.observe(img));
+}
+
 // ─── Render de productos ──────────────────────────────────────────────────────
 function renderProducts() {
-    const productCard = (product) => `
-      <div class="bg-white rounded-xl shadow-md overflow-hidden transition-all card-hover">
-        <img src="${product.img}" alt="${product.name}" class="w-full h-64 object-cover"
-             onerror="this.src='https://via.placeholder.com/400x300?text=Imagen+no+disponible'">
-        <div class="p-6">
-          <h4 class="text-xl font-semibold text-gray-800 mb-2">${product.name}</h4>
-          <p class="text-gray-600 mb-4">Taza sublimada con diseño exclusivo.</p>
-          <div class="flex justify-between items-center">
-            <span class="text-blue-600 font-bold text-xl">${product.price} Bs</span>
-            <button class="bg-blue-600 text-white px-4 py-2 rounded-lg hover:bg-blue-700 transition-all add-to-cart"
-                    data-name="${product.name}" data-price="${product.price}">
-              <i class="fas fa-cart-plus mr-2"></i> Añadir
-            </button>
+    const productCard = (product, index, cat) => `
+      <div class="swiper-slide h-auto">
+        <div class="bg-white dark:bg-gray-800 rounded-xl shadow-md overflow-hidden transition-all duration-300 hover:-translate-y-2 hover:shadow-2xl opacity-0 animate-slide-up group h-full flex flex-col" style="animation-delay: ${index * 150}ms">
+            <div class="relative overflow-hidden ${cat === 'poleras' ? 'bg-white dark:bg-gray-800 p-6' : 'bg-gray-200 dark:bg-gray-700'}">
+                <img data-src="${product.img}" src="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 1 1'%3E%3C/svg%3E" alt="${product.name}" class="lazy-img w-full h-64 ${cat === 'poleras' ? 'object-contain' : 'object-cover'} transition-all duration-700 blur-md scale-105 group-hover:scale-110"
+                     onerror="this.src='https://via.placeholder.com/400x300?text=Imagen+no+disponible'">
+                <div class="absolute inset-0 bg-black bg-opacity-10 opacity-0 group-hover:opacity-100 transition-opacity duration-300"></div>
+            </div>
+            <div class="p-6 flex flex-col flex-grow">
+              <h4 class="text-xl font-semibold text-gray-800 dark:text-white mb-2">${product.name}</h4>
+              <p class="text-gray-600 dark:text-gray-300 mb-4 flex-grow">${product.description || 'Diseño exclusivo.'}</p>
+              <div class="flex justify-between items-center mt-auto">
+                <span class="text-blue-600 dark:text-blue-400 font-bold text-xl">${product.price} Bs</span>
+                <button class="bg-blue-600 text-white px-4 py-2 rounded-lg hover:bg-blue-700 active:scale-95 transition-all duration-200 add-to-cart flex items-center"
+                        data-name="${product.name}" data-price="${product.price}">
+                  <i class="fas fa-cart-plus mr-2"></i> Añadir
+                </button>
+              </div>
+            </div>
           </div>
-        </div>
       </div>`;
 
-    ['parejas', 'ninos', 'graduacion'].forEach(cat => {
+    ['parejas', 'ninos', 'graduacion', 'poleras'].forEach(cat => {
         const el = document.getElementById(`products-${cat}`);
-        if (el) el.innerHTML = products[cat].map(productCard).join('');
+        if (el) el.innerHTML = products[cat].map((product, index) => productCard(product, index, cat)).join('');
+    });
+}
+
+// ─── Carruseles de Productos ──────────────────────────────────────────────────
+function initCarousels() {
+    ['parejas', 'ninos', 'graduacion', 'poleras'].forEach(cat => {
+        const swiperContainer = document.querySelector(`#swiper-${cat}`);
+        if (swiperContainer) {
+            new Swiper(swiperContainer, {
+                loop: products[cat].length > 3, // El loop solo funciona bien con más slides que las visibles
+                spaceBetween: 20,
+                breakpoints: {
+                    640: { slidesPerView: 2, spaceBetween: 20 },
+                    1024: { slidesPerView: 3, spaceBetween: 30 },
+                },
+                pagination: {
+                    el: swiperContainer.querySelector('.swiper-pagination'),
+                    clickable: true,
+                },
+                navigation: {
+                    nextEl: swiperContainer.parentElement.querySelector('.swiper-button-next'),
+                    prevEl: swiperContainer.parentElement.querySelector('.swiper-button-prev'),
+                },
+            });
+        }
     });
 }
 
@@ -69,21 +136,73 @@ function renderProducts() {
 let cartCount = 0;
 
 function updateCartCount() {
-    document.querySelectorAll('.cart-count').forEach(s => s.textContent = cartCount);
+    document.querySelectorAll('.cart-count').forEach(s => {
+        s.textContent = cartCount;
+        s.classList.remove('animate-bounce');
+        void s.offsetWidth; // Forzar un reflow para reiniciar la animación en cada clic
+        s.classList.add('animate-bounce');
+    });
 }
 
 function showNotification(message, isError = false) {
     const n = document.createElement('div');
-    n.className = `toast ${isError ? 'error' : ''}`;
+    n.className = `toast ${isError ? 'error' : ''} animate-slide-up`;
     n.innerHTML = `<div class="flex items-center">
       <i class="fas ${isError ? 'fa-exclamation-circle' : 'fa-check-circle'} mr-2"></i>
       <span>${message}</span></div>`;
     document.body.appendChild(n);
-    setTimeout(() => n.remove(), 3000);
+    setTimeout(() => {
+        n.style.transition = 'opacity 0.5s ease';
+        n.style.opacity = '0';
+        setTimeout(() => n.remove(), 500); // Esperar que termine de desvanecerse
+    }, 3000);
 }
 
 // ─── Eventos generales ────────────────────────────────────────────────────────
 function initializeEvents() {
+    // Utilidad de Sonido para el Tema usando Web Audio API (Sin necesidad de archivos MP3)
+    let audioCtx;
+    function playThemeSound(isDark) {
+        try {
+            if (!audioCtx) audioCtx = new (window.AudioContext || window.webkitAudioContext)();
+            if (audioCtx.state === 'suspended') audioCtx.resume();
+
+            const osc = audioCtx.createOscillator();
+            const gain = audioCtx.createGain();
+            osc.connect(gain);
+            gain.connect(audioCtx.destination);
+
+            // Tono más agudo para modo claro, más grave para modo oscuro
+            osc.frequency.setValueAtTime(isDark ? 300 : 500, audioCtx.currentTime);
+            osc.frequency.exponentialRampToValueAtTime(isDark ? 150 : 700, audioCtx.currentTime + 0.15);
+
+            // Control de volumen (muy bajito para que sea sutil)
+            gain.gain.setValueAtTime(0.05, audioCtx.currentTime);
+            gain.gain.exponentialRampToValueAtTime(0.001, audioCtx.currentTime + 0.15);
+
+            osc.start();
+            osc.stop(audioCtx.currentTime + 0.15);
+        } catch (e) { /* Ignorar si el navegador no soporta el audio o lo bloquea */ }
+    }
+
+    // Modo Oscuro (Toggle)
+    const themeToggleBtns = document.querySelectorAll('.theme-toggle');
+    themeToggleBtns.forEach(btn => {
+        btn.addEventListener('click', () => {
+            const isDark = document.documentElement.classList.toggle('dark');
+            localStorage.theme = isDark ? 'dark' : 'light';
+
+            // Reproducir sonido sutil
+            playThemeSound(isDark);
+
+            // Animación visual del botón (giro y escala usando Tailwind)
+            btn.classList.add('-rotate-180', 'scale-125', 'duration-300');
+            setTimeout(() => {
+                btn.classList.remove('-rotate-180', 'scale-125', 'duration-300');
+            }, 300);
+        });
+    });
+
     // Carrito
     document.addEventListener('click', (e) => {
         const btn = e.target.closest('.add-to-cart');
@@ -164,7 +283,7 @@ const KB = [
     },
     {
         keys: ['taza', 'tazas', 'mug', 'mugs', 'magica', 'mágica', 'viaje', 'termo'],
-        answer: '☕ Nuestras <strong>tazas personalizadas</strong>:\n\n• Taza blanca 11oz — desde <strong>22 Bs</strong>\n• Taza mágica (cambia de color) — desde <strong>35 Bs</strong>\n• Taza de viaje / termo — desde <strong>50 Bs</strong>\n\nImpresión de alta calidad resistente al lavado. ✅',
+        answer: '☕ Nuestras <strong>tazas personalizadas</strong>:\n\n• Taza blanca 11oz — desde <strong>22 Bs</strong>\n• Taza mágica (cambia de color) — desde <strong>45 Bs</strong>\n• Taza de viaje / termo — desde <strong>50 Bs</strong>\n\nImpresión de alta calidad resistente al lavado. ✅',
         quick: ['Quiero cotizar', '¿Cómo envío mi diseño?', 'Hacer un pedido']
     },
     {
@@ -254,6 +373,7 @@ function initChatbot() {
     const tooltip = document.getElementById('cg-tooltip');
 
     if (!launcher || !chatEl) return;
+    launcher.classList.add('animate-float');
 
     // Ocultar tooltip después de 4 s
     setTimeout(() => { if (tooltip) tooltip.style.opacity = '0'; }, 4000);
@@ -364,7 +484,9 @@ async function init() {
     requestAnimationFrame(() => {
         try {
             renderProducts();
+            initLazyLoading();
             initializeEvents();
+            initCarousels();
             updateCartCount();
             initChatbot();
             console.log("✅ CREAGRAFICA: Componentes y lógica cargados correctamente.");

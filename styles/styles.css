@@ -2,6 +2,20 @@
 @tailwind components;
 @tailwind utilities;
 
+/* ─── FIX GLOBAL PARA TEXTOS EN MODO OSCURO ─── */
+/* Fuerza a que cualquier texto gris oscuro se vuelva blanco/claro en modo oscuro, 
+   ideal si tienes clases como 'text-gray-800' en tus archivos hero.html o footer.html */
+.dark .text-gray-900,
+.dark .text-gray-800,
+.dark .text-gray-700 {
+    color: #ffffff !important;
+}
+
+.dark .text-gray-600 {
+    color: #d1d5db !important;
+    /* gris claro para textos secundarios */
+}
+
 @layer components {
     .hero {
         background: linear-gradient(rgba(0, 0, 0, 0.6), rgba(0, 0, 0, 0.6)),
@@ -9,6 +23,18 @@
         background-size: cover;
         background-position: center;
         background-attachment: fixed;
+    }
+
+    /* Contenedor utilitario para Spline 3D */
+    .spline-container {
+        position: relative;
+        width: 100%;
+        height: 100%;
+    }
+
+    .spline-container spline-viewer {
+        width: 100%;
+        height: 100%;
     }
 
     .card-hover {
@@ -36,9 +62,56 @@
     .toast.error {
         background-color: #ef4444;
     }
+
+    /* Estilos personalizados para Swiper.js */
+    .swiper-nav-btn {
+        color: #2563eb !important;
+        /* Tailwind blue-600 */
+        width: 44px !important;
+        height: 44px !important;
+        transition: all 0.2s ease-in-out;
+        opacity: 0;
+        transform: scale(0.8) translateY(-50%);
+    }
+
+    .group\/swiper:hover .swiper-nav-btn {
+        opacity: 1;
+        transform: scale(1) translateY(-50%);
+    }
+
+    .swiper-button-disabled {
+        opacity: 0 !important;
+        pointer-events: none;
+    }
+
+    .swiper-pagination-bullet-active {
+        background-color: #2563eb !important;
+        /* Tailwind blue-600 */
+    }
+
+    .dark .swiper-nav-btn {
+        color: #60a5fa !important;
+        /* Tailwind blue-400 */
+    }
 }
 
 @layer utilities {
+    .animate-slide-up {
+        animation: slideUp 0.6s ease-out forwards;
+    }
+
+    @keyframes slideUp {
+        0% {
+            opacity: 0;
+            transform: translateY(30px);
+        }
+
+        100% {
+            opacity: 1;
+            transform: translateY(0);
+        }
+    }
+
     @keyframes slideIn {
         from {
             transform: translateX(100%);
@@ -183,6 +256,12 @@
     font-family: 'Poppins', sans-serif;
 }
 
+.dark #cg-chat {
+    background: #1f2937;
+    /* bg-gray-800 */
+    box-shadow: 0 12px 48px rgba(0, 0, 0, .4);
+}
+
 #cg-chat.open {
     transform: scale(1) translateY(0);
     opacity: 1;
@@ -309,6 +388,13 @@
     border-bottom-left-radius: 4px;
 }
 
+.dark .cgc-bubble.bot {
+    background: #374151;
+    /* bg-gray-700 */
+    color: #f3f4f6;
+    /* text-gray-100 */
+}
+
 .cgc-bubble.user {
     background: #2563eb;
     color: #fff;
@@ -319,6 +405,11 @@
 .cgc-bubble.bot strong {
     color: #1d4ed8;
     font-weight: 600;
+}
+
+.dark .cgc-bubble.bot strong {
+    color: #60a5fa;
+    /* text-blue-400 */
 }
 
 .cgc-bubble.bot a {
@@ -336,6 +427,10 @@
     display: flex;
     gap: 5px;
     align-items: center;
+}
+
+.dark .cgc-typing {
+    background: #374151;
 }
 
 .cgc-typing span {
@@ -387,6 +482,12 @@
     transition: background .15s, color .15s, transform .1s;
 }
 
+.dark .cgc-qr {
+    background: #1f2937;
+    border-color: #3b82f6;
+    color: #60a5fa;
+}
+
 .cgc-qr:hover {
     background: #2563eb;
     color: #fff;
@@ -413,6 +514,10 @@
     flex-shrink: 0;
 }
 
+.dark .cgc-input-bar {
+    border-top: 1px solid #374151;
+}
+
 .cgc-input-bar input {
     flex: 1;
     font-family: 'Poppins', sans-serif;
@@ -424,6 +529,12 @@
     background: #f8faff;
     color: #1e3a8a;
     transition: border-color .2s;
+}
+
+.dark .cgc-input-bar input {
+    background: #374151;
+    border-color: #4b5563;
+    color: #f3f4f6;
 }
 
 .cgc-input-bar input:focus {
