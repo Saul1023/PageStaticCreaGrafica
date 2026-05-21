@@ -16,28 +16,28 @@ if (localStorage.theme === 'dark' || (!('theme' in localStorage) && window.match
 // ─── Datos de productos ───────────────────────────────────────────────────────
 const products = {
     parejas: [
-        { name: "Taza Pareja Romántica", img: "./images/pareja.jpg", price: 22, description: "Taza de cerámica 11oz." },
-        { name: "Taza Pareja Elegante", img: "./images/pareja2.jpg", price: 22, description: "Taza de cerámica 11oz." },
-        { name: "Taza Pareja Divertida", img: "./images/Pareja3.jpg", price: 22, description: "Taza de cerámica 11oz." },
-        { name: "Taza Pareja Moderna", img: "./images/Pareja4.jpg", price: 22, description: "Taza de cerámica 11oz." },
-        { name: "Taza Pareja Clásica", img: "./images/Pareja5.jpg", price: 22, description: "Taza de cerámica 11oz." },
-        { name: "Taza Pareja Original", img: "./images/pareja6.jpg", price: 22, description: "Taza de cerámica 11oz." }
+        { name: "Taza Pareja Romántica", img: "./images/pareja.jpg", price: 25, description: "Taza de cerámica 11oz." },
+        { name: "Taza Pareja Elegante", img: "./images/pareja2.jpg", price: 25, description: "Taza de cerámica 11oz." },
+        { name: "Taza Pareja Divertida", img: "./images/Pareja3.jpg", price: 25, description: "Taza de cerámica 11oz." },
+        { name: "Taza Pareja Moderna", img: "./images/Pareja4.jpg", price: 25, description: "Taza de cerámica 11oz." },
+        { name: "Taza Pareja Clásica", img: "./images/Pareja5.jpg", price: 25, description: "Taza de cerámica 11oz." },
+        { name: "Taza Pareja Original", img: "./images/pareja6.jpg", price: 25, description: "Taza de cerámica 11oz." }
     ],
     ninos: [
-        { name: "Taza Niño Divertida", img: "./images/niño1.jpg", price: 22, description: "Taza de cerámica 11oz." },
-        { name: "Taza Niño Colorida", img: "./images/niño2.jpg", price: 22, description: "Taza de cerámica 11oz." },
-        { name: "Taza Niño Animado", img: "./images/niño3.jpg", price: 22, description: "Taza de cerámica 11oz." },
-        { name: "Taza Niño Educativo", img: "./images/niño4.jpg", price: 22, description: "Taza de cerámica 11oz." },
-        { name: "Taza Niño Personalizada", img: "./images/niño5.jpg", price: 22, description: "Taza de cerámica 11oz." },
-        { name: "Taza Niño Original", img: "./images/niño6.jpg", price: 22, description: "Taza de cerámica 11oz." }
+        { name: "Taza Niño Divertida", img: "./images/niño1.jpg", price: 25, description: "Taza de cerámica 11oz." },
+        { name: "Taza Niño Colorida", img: "./images/niño2.jpg", price: 25, description: "Taza de cerámica 11oz." },
+        { name: "Taza Niño Animado", img: "./images/niño3.jpg", price: 25, description: "Taza de cerámica 11oz." },
+        { name: "Taza Niño Educativo", img: "./images/niño4.jpg", price: 25, description: "Taza de cerámica 11oz." },
+        { name: "Taza Niño Personalizada", img: "./images/niño5.jpg", price: 25, description: "Taza de cerámica 11oz." },
+        { name: "Taza Niño Original", img: "./images/niño6.jpg", price: 25, description: "Taza de cerámica 11oz." }
     ],
     graduacion: [
-        { name: "Taza Graduación Elegante", img: "./images/Graduado.jpg", price: 22, description: "Taza de cerámica 11oz." },
-        { name: "Taza Graduación Clásica", img: "./images/Graduado2.jpg", price: 22, description: "Taza de cerámica 11oz." },
-        { name: "Taza Graduación Moderna", img: "./images/Graduado3.jpg", price: 22, description: "Taza de cerámica 11oz." },
-        { name: "Taza Graduación Personalizada", img: "./images/Graduado4.jpg", price: 22, description: "Taza de cerámica 11oz." },
-        { name: "Taza Graduación Original", img: "./images/Graduado5.jpg", price: 22, description: "Taza de cerámica 11oz." },
-        { name: "Taza Graduación Especial", img: "./images/Graduado6.jpg", price: 22, description: "Taza de cerámica 11oz." }
+        { name: "Taza Graduación Elegante", img: "./images/Graduado.jpg", price: 25, description: "Taza de cerámica 11oz." },
+        { name: "Taza Graduación Clásica", img: "./images/Graduado2.jpg", price: 25, description: "Taza de cerámica 11oz." },
+        { name: "Taza Graduación Moderna", img: "./images/Graduado3.jpg", price: 25, description: "Taza de cerámica 11oz." },
+        { name: "Taza Graduación Personalizada", img: "./images/Graduado4.jpg", price: 25, description: "Taza de cerámica 11oz." },
+        { name: "Taza Graduación Original", img: "./images/Graduado5.jpg", price: 25, description: "Taza de cerámica 11oz." },
+        { name: "Taza Graduación Especial", img: "./images/Graduado6.jpg", price: 25, description: "Taza de cerámica 11oz." }
     ],
     poleras: [
         { name: "Polera Diseño Abstracto", img: "./images/Polera_abstracta.jpg", price: 90, description: "Polera tacto algodón, sublimado full color." },
@@ -45,7 +45,9 @@ const products = {
         { name: "Polera Minimalista", img: "./images/Polera_minimalista.jpg", price: 95, description: "Polera tacto algodón, sublimado full color." },
         { name: "Polera Frase Motivadora", img: "./images/Polera_frase.jpg", price: 90, description: "Polera tacto algodón, sublimado full color." },
         { name: "Polera Gráfica Retro", img: "./images/Polera_grafica_retro.jpg", price: 95, description: "Polera tacto algodón, sublimado full color." },
-        { name: "Polera Logo Personalizado", img: "./images/Polera_logo.jpg", price: 90, description: "Polera tacto algodón, sublimado full color." }
+        { name: "Polera Logo Personalizado", img: "./images/Polera_logo.jpg", price: 90, description: "Polera tacto algodón, sublimado full color." },
+        { name: "Polera Michael Jackson", img: "./images/michael1.png", price: 150, description: "Polera tacto algodón, sublimado full color." },
+        { name: "Polera Guns Roses", img: "./images/gunsroses1.png", price: 150, description: "Polera tacto algodón, sublimado full color." }
     ]
 };
 
@@ -283,7 +285,7 @@ const KB = [
     },
     {
         keys: ['taza', 'tazas', 'mug', 'mugs', 'magica', 'mágica', 'viaje', 'termo'],
-        answer: '☕ Nuestras <strong>tazas personalizadas</strong>:\n\n• Taza blanca 11oz — desde <strong>22 Bs</strong>\n• Taza mágica (cambia de color) — desde <strong>45 Bs</strong>\n• Taza de viaje / termo — desde <strong>50 Bs</strong>\n\nImpresión de alta calidad resistente al lavado. ✅',
+        answer: '☕ Nuestras <strong>tazas personalizadas</strong>:\n\n• Taza blanca 11oz — desde <strong>25 Bs</strong>\n• Taza mágica (cambia de color) — desde <strong>45 Bs</strong>\n• Taza de viaje / termo — desde <strong>50 Bs</strong>\n\nImpresión de alta calidad resistente al lavado. ✅',
         quick: ['Quiero cotizar', '¿Cómo envío mi diseño?', 'Hacer un pedido']
     },
     {
@@ -293,7 +295,7 @@ const KB = [
     },
     {
         keys: ['precio', 'precios', 'costo', 'cuánto cuesta', 'vale', 'valor', 'tarifa', 'cobran', 'cuánto'],
-        answer: 'Nuestros precios:\n\n☕ Tazas desde <strong>22 Bs</strong>\n👕 Polos desde <strong>90 Bs</strong>\n🎒 Tote bags desde <strong>55 Bs</strong>\n🔑 Llaveros desde <strong>20 Bs</strong>\n\n📦 Pedidos de <strong>10+ unidades</strong> tienen descuento especial.',
+        answer: 'Nuestros precios:\n\n☕ Tazas desde <strong>25 Bs</strong>\n👕 Polos desde <strong>90 Bs</strong>\n🎒 Tote bags desde <strong>55 Bs</strong>\n🔑 Llaveros desde <strong>20 Bs</strong>\n\n📦 Pedidos de <strong>10+ unidades</strong> tienen descuento especial.',
         quick: ['Quiero cotizar', 'Descuentos por volumen', '¿Cómo pago?', 'Hacer un pedido']
     },
     {
@@ -303,12 +305,12 @@ const KB = [
     },
     {
         keys: ['tiempo', 'entrega', 'demora', 'cuánto tarda', 'días', 'plazo', 'espera', 'cuándo', 'listo'],
-        answer: '⏱️ Tiempos de entrega:\n\n• <strong>Estándar:</strong> 3 a 5 días hábiles\n• <strong>Express:</strong> 24 – 48 horas (recargo)\n• <strong>Corporativos:</strong> 7 a 10 días hábiles\n\nTe avisamos por WhatsApp cuando esté listo. 📲',
+        answer: '⏱️ Tiempos de entrega:\n\n• <strong>Estándar:</strong> 1 a 2 días hábiles\n• <strong>Express:</strong> 24 – 48 horas (recargo)\n• <strong>Corporativos:</strong> 7 a 10 días hábiles\n\nTe avisamos por WhatsApp cuando esté listo. 📲',
         quick: ['¿Hay envío a domicilio?', '¿Cómo pago?', 'Hacer un pedido']
     },
     {
         keys: ['envío', 'envios', 'domicilio', 'delivery', 'despacho', 'llegan', 'envían', 'recojo'],
-        answer: '🚚 Opciones de entrega:\n\n• <strong>Recojo en tienda</strong> — sin costo\n• <strong>Delivery La Paz y El Alto</strong> — costo según zona\n• <strong>Encomienda a otras ciudades</strong> — coordinamos',
+        answer: '🚚 Opciones de entrega:\n\n• <strong>Recojo en tienda</strong> — sin costo\n• <strong>Delivery Potosí</strong> — costo según zona\n• <strong>Encomienda a otras ciudades</strong> — coordinamos',
         quick: ['¿Dónde están ubicados?', 'Tiempos de entrega', 'Hacer un pedido']
     },
     {
@@ -338,7 +340,7 @@ const KB = [
     },
     {
         keys: ['ubicación', 'ubicados', 'tienda', 'local', 'dirección', 'donde están', 'dónde', 'visitar'],
-        answer: '📍 <strong>Av. Siempre Viva 123 — La Paz, Bolivia</strong>\n\n🕘 Lun – Vie: 9:00 – 18:00\n🕙 Sábados: 9:00 – 13:00\n\nTambién atendemos por WhatsApp sin necesidad de visitar. 📲',
+        answer: '📍 <strong>Zona Villa Victoria ,Potosí Bolivia</strong>\n\n🕘 Lun – Vie: 9:00 – 18:00\n🕙 Sábados: 9:00 – 13:00\n\nTambién atendemos por WhatsApp sin necesidad de visitar. 📲',
         quick: ['¿Hacen envíos?', 'Contacto WhatsApp', 'Hacer un pedido']
     },
     {
