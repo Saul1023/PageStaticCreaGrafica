@@ -123,6 +123,7 @@ function initLazyLoading() {
 
 // ─── WhatsApp helpers ─────────────────────────────────────────────────────────
 const WA_LINK = 'https://wa.me/message/U4GBHIB7OGT5K1';
+const WA_NUMBER = 'https://wa.me/59169608947';
 
 function buildOrderMessage(product, qty, note) {
     const total = product.price * qty;
@@ -204,7 +205,7 @@ function openOrderModal(product) {
         const size = document.getElementById('modal-size')?.value;
         const fullNote = size ? `Talla: ${size}${note ? ' | ' + note : ''}` : note;
         const msg = buildOrderMessage(product, qty, fullNote);
-        window.open(`${WA_LINK}?text=${encodeURIComponent(msg)}`, '_blank');
+        window.open(`${WA_NUMBER}?text=${encodeURIComponent(msg)}`, '_blank');
         close();
     };
 }
@@ -391,7 +392,7 @@ function initializeEvents() {
             phone ? `📱 *Teléfono:* ${phone}` : '',
             `📝 *Mensaje:* ${message}`
         ].filter(Boolean).join('\n');
-        window.open(`${WA_LINK}?text=${encodeURIComponent(text)}`, '_blank');
+        window.open(`${WA_NUMBER}?text=${encodeURIComponent(text)}`, '_blank');
         showNotification('¡Redirigiendo a WhatsApp!');
         e.target.reset();
     });
