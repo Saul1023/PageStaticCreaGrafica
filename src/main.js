@@ -1,4 +1,11 @@
 import '../styles/styles.css'
+import AOS from 'aos'
+import 'aos/dist/aos.css'
+import GLightbox from 'glightbox'
+import 'glightbox/dist/css/glightbox.css'
+import { CountUp } from 'countup.js'
+import Swiper from 'swiper/bundle'
+import 'swiper/css/bundle'
 
 import navbarHtml from './components/navbar.html?raw'
 import heroHtml from './components/hero.html?raw'
@@ -51,7 +58,42 @@ const products = {
     ]
 };
 
-// ─── Inyector de componentes ──────────────────────────────────────────────────
+// ─── AOS Init ─────────────────────────────────────────────────────────────────
+function initAOS() {
+    AOS.init({
+        duration: 700,
+        once: true,
+        offset: 60,
+        easing: 'ease-out-cubic'
+    });
+}
+
+// ─── GLightbox Init ───────────────────────────────────────────────────────────
+function initLightbox() {
+    GLightbox({
+        selector: '.glightbox',
+        touchNavigation: true,
+        loop: true,
+        autoplayVideos: false
+    });
+}
+
+// ─── CountUp Init ─────────────────────────────────────────────────────────────
+function initCounters() {
+    const counters = document.querySelectorAll('.counter');
+    const observer = new IntersectionObserver((entries) => {
+        entries.forEach(entry => {
+            if (entry.isIntersecting) {
+                const el = entry.target;
+                const target = parseInt(el.dataset.target);
+                new CountUp(el, target, { duration: 2.5, useEasing: true }).start();
+                observer.unobserve(el);
+            }
+        });
+    }, { threshold: 0.5 });
+    counters.forEach(c => observer.observe(c));
+}
+
 function injectComponent(selector, htmlContent) {
     const element = document.querySelector(selector);
     if (element) element.innerHTML = htmlContent;
@@ -79,24 +121,118 @@ function initLazyLoading() {
     lazyImages.forEach(img => imageObserver.observe(img));
 }
 
+// ─── WhatsApp helpers ─────────────────────────────────────────────────────────
+const WA_LINK = 'https://wa.me/message/U4GBHIB7OGT5K1';
+
+function buildOrderMessage(product, qty, note) {
+    const total = product.price * qty;
+    const lines = [
+        '🛒 *NUEVO PEDIDO — CREAGRAFICA*',
+        '',
+        `📦 *Producto:* ${product.name}`,
+        `💰 *Precio unitario:* ${product.price} Bs`,
+        `🔢 *Cantidad:* ${qty}`,
+        `💵 *Total estimado:* ${total} Bs`,
+        note ? `📝 *Nota:* ${note}` : '',
+        '',
+        '¡Hola! Me interesa este producto. ¿Pueden confirmarme disponibilidad y tiempo de entrega?'
+    ].filter(l => l !== null);
+    return lines.join('\n');
+}
+
+function openOrderModal(product) {
+    document.getElementById('order-modal')?.remove();
+
+    const isTshirt = product.description?.toLowerCase().includes('polera');
+    const sizeField = isTshirt ? `
+        <div>
+            <label class="block text-sm font-medium text-gray-700 dark:text-gray-300 mb-1">Talla</label>
+            <select id="modal-size" class="w-full border border-gray-300 dark:border-gray-600 dark:bg-gray-700 dark:text-white rounded-lg px-3 py-2 focus:outline-none focus:ring-2 focus:ring-green-500">
+                <option>XS</option><option>S</option><option selected>M</option>
+                <option>L</option><option>XL</option><option>XXL</option><option>XXXL</option>
+            </select>
+        </div>` : '';
+
+    const modal = document.createElement('div');
+    modal.id = 'order-modal';
+    modal.className = 'fixed inset-0 z-[9999] flex items-center justify-center p-4 bg-black/60 backdrop-blur-sm';
+    modal.innerHTML = `
+        <div class="bg-white dark:bg-gray-800 rounded-2xl shadow-2xl w-full max-w-md p-6 animate-slide-up">
+            <div class="flex items-center justify-between mb-4">
+                <h3 class="text-lg font-bold text-gray-800 dark:text-white">Confirmar pedido</h3>
+                <button id="modal-close" class="text-gray-400 hover:text-gray-600 dark:hover:text-gray-200 text-xl">&times;</button>
+            </div>
+            <div class="flex gap-3 mb-4 bg-gray-50 dark:bg-gray-700 rounded-xl p-3">
+                <img src="${product.img}" alt="${product.name}" class="w-16 h-16 object-cover rounded-lg flex-shrink-0">
+                <div>
+                    <p class="font-semibold text-gray-800 dark:text-white text-sm">${product.name}</p>
+                    <p class="text-blue-600 dark:text-blue-400 font-bold">${product.price} Bs</p>
+                    <p class="text-xs text-gray-500 dark:text-gray-400">${product.description || ''}</p>
+                </div>
+            </div>
+            <div class="space-y-3">
+                <div>
+                    <label class="block text-sm font-medium text-gray-700 dark:text-gray-300 mb-1">Cantidad</label>
+                    <input type="number" id="modal-qty" value="1" min="1" max="100"
+                        class="w-full border border-gray-300 dark:border-gray-600 dark:bg-gray-700 dark:text-white rounded-lg px-3 py-2 focus:outline-none focus:ring-2 focus:ring-green-500">
+                </div>
+                ${sizeField}
+                <div>
+                    <label class="block text-sm font-medium text-gray-700 dark:text-gray-300 mb-1">Nota o personalización <span class="text-gray-400">(opcional)</span></label>
+                    <textarea id="modal-note" rows="2" placeholder="Ej: nombre a imprimir, colores, fecha especial..."
+                        class="w-full border border-gray-300 dark:border-gray-600 dark:bg-gray-700 dark:text-white rounded-lg px-3 py-2 focus:outline-none focus:ring-2 focus:ring-green-500 resize-none text-sm"></textarea>
+                </div>
+            </div>
+            <div class="flex gap-3 mt-5">
+                <button id="modal-cancel" class="flex-1 border border-gray-300 dark:border-gray-600 text-gray-700 dark:text-gray-300 py-2 rounded-xl hover:bg-gray-50 dark:hover:bg-gray-700 transition-all">Cancelar</button>
+                <button id="modal-confirm" class="flex-1 bg-green-500 text-white py-2 rounded-xl hover:bg-green-600 active:scale-95 transition-all font-semibold flex items-center justify-center gap-2">
+                    <i class="fab fa-whatsapp"></i> Enviar pedido
+                </button>
+            </div>
+        </div>`;
+
+    document.body.appendChild(modal);
+
+    const close = () => modal.remove();
+    document.getElementById('modal-close').onclick = close;
+    document.getElementById('modal-cancel').onclick = close;
+    modal.addEventListener('click', e => { if (e.target === modal) close(); });
+
+    document.getElementById('modal-confirm').onclick = () => {
+        const qty = parseInt(document.getElementById('modal-qty').value) || 1;
+        const note = document.getElementById('modal-note').value.trim();
+        const size = document.getElementById('modal-size')?.value;
+        const fullNote = size ? `Talla: ${size}${note ? ' | ' + note : ''}` : note;
+        const msg = buildOrderMessage(product, qty, fullNote);
+        window.open(`${WA_LINK}?text=${encodeURIComponent(msg)}`, '_blank');
+        close();
+    };
+}
+
 // ─── Render de productos ──────────────────────────────────────────────────────
 function renderProducts() {
     const productCard = (product, index, cat) => `
-      <div class="swiper-slide h-auto">
-        <div class="bg-white dark:bg-gray-800 rounded-xl shadow-md overflow-hidden transition-all duration-300 hover:-translate-y-2 hover:shadow-2xl opacity-0 animate-slide-up group h-full flex flex-col" style="animation-delay: ${index * 150}ms">
+      <div class="swiper-slide h-auto" data-aos="fade-up" data-aos-delay="${index * 100}">
+        <div class="bg-white dark:bg-gray-800 rounded-xl shadow-md overflow-hidden transition-all duration-300 hover:-translate-y-2 hover:shadow-2xl group h-full flex flex-col">
             <div class="relative overflow-hidden ${cat === 'poleras' ? 'bg-white dark:bg-gray-800 p-6' : 'bg-gray-200 dark:bg-gray-700'}">
-                <img data-src="${product.img}" src="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 1 1'%3E%3C/svg%3E" alt="${product.name}" class="lazy-img w-full h-64 ${cat === 'poleras' ? 'object-contain' : 'object-cover'} transition-all duration-700 blur-md scale-105 group-hover:scale-110"
-                     onerror="this.src='https://via.placeholder.com/400x300?text=Imagen+no+disponible'">
-                <div class="absolute inset-0 bg-black bg-opacity-10 opacity-0 group-hover:opacity-100 transition-opacity duration-300"></div>
+                <a href="${product.img}" class="glightbox" data-gallery="gallery-${cat}" data-title="${product.name}" data-description="${product.description || 'Diseño exclusivo.'}">
+                  <img data-src="${product.img}" src="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 1 1'%3E%3C/svg%3E" alt="${product.name}" class="lazy-img w-full h-64 ${cat === 'poleras' ? 'object-contain' : 'object-cover'} transition-all duration-700 blur-md scale-105 group-hover:scale-110"
+                       onerror="this.src='https://via.placeholder.com/400x300?text=Imagen+no+disponible'">
+                  <div class="absolute inset-0 bg-black/30 opacity-0 group-hover:opacity-100 transition-opacity duration-300 flex items-center justify-center">
+                    <span class="bg-white text-blue-600 text-xs font-bold px-3 py-1 rounded-full flex items-center gap-1">
+                      <i class="fas fa-search-plus"></i> Ver diseño
+                    </span>
+                  </div>
+                </a>
             </div>
             <div class="p-6 flex flex-col flex-grow">
               <h4 class="text-xl font-semibold text-gray-800 dark:text-white mb-2">${product.name}</h4>
               <p class="text-gray-600 dark:text-gray-300 mb-4 flex-grow">${product.description || 'Diseño exclusivo.'}</p>
               <div class="flex justify-between items-center mt-auto">
                 <span class="text-blue-600 dark:text-blue-400 font-bold text-xl">${product.price} Bs</span>
-                <button class="bg-blue-600 text-white px-4 py-2 rounded-lg hover:bg-blue-700 active:scale-95 transition-all duration-200 add-to-cart flex items-center"
-                        data-name="${product.name}" data-price="${product.price}">
-                  <i class="fas fa-cart-plus mr-2"></i> Añadir
+                <button class="wa-order-btn bg-green-500 text-white px-4 py-2 rounded-lg hover:bg-green-600 active:scale-95 transition-all duration-200 flex items-center text-sm font-semibold"
+                        data-product-id="${cat}-${index}">
+                  <i class="fab fa-whatsapp mr-2"></i> Pedir
                 </button>
               </div>
             </div>
@@ -205,7 +341,17 @@ function initializeEvents() {
         });
     });
 
-    // Carrito
+    // Botones Pedir → modal WhatsApp
+    document.addEventListener('click', (e) => {
+        const btn = e.target.closest('.wa-order-btn');
+        if (btn) {
+            const [cat, idx] = btn.dataset.productId.split('-');
+            const product = products[cat]?.[parseInt(idx)];
+            if (product) openOrderModal(product);
+        }
+    });
+
+    // Carrito (aún funcional para el contador)
     document.addEventListener('click', (e) => {
         const btn = e.target.closest('.add-to-cart');
         if (btn) {
@@ -229,19 +375,24 @@ function initializeEvents() {
             window.scrollTo({ top: 0, behavior: 'smooth' }));
     }
 
-    // Formulario de contacto
+    // Formulario de contacto → WhatsApp
     document.getElementById('contact-form')?.addEventListener('submit', (e) => {
         e.preventDefault();
         const name = document.getElementById('name')?.value.trim();
-        const email = document.getElementById('email')?.value.trim();
+        const phone = document.getElementById('phone')?.value.trim();
         const message = document.getElementById('message')?.value.trim();
-        if (!name || !email || !message) {
-            showNotification('Por favor completa todos los campos', true); return;
+        if (!name || !message) {
+            showNotification('Por favor completa nombre y mensaje', true); return;
         }
-        if (!email.includes('@')) {
-            showNotification('Por favor ingresa un email válido', true); return;
-        }
-        showNotification('¡Mensaje enviado con éxito! Te contactaremos pronto.');
+        const text = [
+            '📬 *CONSULTA — CREAGRAFICA*',
+            '',
+            `👤 *Nombre:* ${name}`,
+            phone ? `📱 *Teléfono:* ${phone}` : '',
+            `📝 *Mensaje:* ${message}`
+        ].filter(Boolean).join('\n');
+        window.open(`${WA_LINK}?text=${encodeURIComponent(text)}`, '_blank');
+        showNotification('¡Redirigiendo a WhatsApp!');
         e.target.reset();
     });
 
@@ -345,7 +496,7 @@ const KB = [
     },
     {
         keys: ['contacto', 'whatsapp', 'teléfono', 'llamar', 'comunicarme', 'hablar', 'asesor', 'humano'],
-        answer: '📞 Contáctanos:\n\n💬 <strong>WhatsApp:</strong> +591 69608947\n📧 <strong>Email:</strong> info@creagrafica.com\n📘 <strong>Facebook:</strong> CreaGraficasubli\n\nAtendemos <strong>Lun–Vie 9–18 h y Sáb 9–13 h</strong>.',
+        answer: '📞 Contáctanos:\n\n💬 <strong>WhatsApp:</strong> <a href="https://wa.me/message/U4GBHIB7OGT5K1" target="_blank">Escríbenos aquí</a>\n📧 <strong>Email:</strong> info@creagrafica.com\n📘 <strong>Facebook:</strong> CreaGraficasubli\n\nAtendemos <strong>Lun–Vie 9–18 h y Sáb 9–13 h</strong>.',
         quick: ['Ver productos', 'Precios', 'Hacer un pedido']
     },
     {
@@ -491,6 +642,9 @@ async function init() {
             initCarousels();
             updateCartCount();
             initChatbot();
+            initAOS();
+            initLightbox();
+            initCounters();
             console.log("✅ CREAGRAFICA: Componentes y lógica cargados correctamente.");
         } catch (error) {
             console.error("❌ Error al inicializar la lógica:", error);

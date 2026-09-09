@@ -15,6 +15,10 @@
         "vite-plugin-html": "^3.2.2"
     },
     "dependencies": {
-        "alpinejs": "^3.14.1"
+        "alpinejs": "^3.14.1",
+        "aos": "^2.3.4",
+        "countup.js": "^2.10.1",
+        "glightbox": "^3.3.1",
+        "swiper": "^14.2.0"
     }
 }
