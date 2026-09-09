@@ -136,7 +136,8 @@ function buildOrderMessage(product, qty, note) {
         `💵 *Total estimado:* ${total} Bs`,
         note ? `📝 *Nota:* ${note}` : '',
         '',
-        '¡Hola! Me interesa este producto. ¿Pueden confirmarme disponibilidad y tiempo de entrega?'
+        '¡Hola! Me interesa este producto. ¿Pueden confirmarme disponibilidad y tiempo de entrega?',
+        '📎 Adjunto mi foto/diseño a continuación.'
     ].filter(l => l !== null);
     return lines.join('\n');
 }
@@ -179,9 +180,15 @@ function openOrderModal(product) {
                 </div>
                 ${sizeField}
                 <div>
-                    <label class="block text-sm font-medium text-gray-700 dark:text-gray-300 mb-1">Nota o personalización <span class="text-gray-400">(opcional)</span></label>
+                    <label class="block text-sm font-medium text-gray-700 dark:text-gray-300 mb-1">Personalización <span class="text-gray-400">(opcional)</span></label>
                     <textarea id="modal-note" rows="2" placeholder="Ej: nombre a imprimir, colores, fecha especial..."
                         class="w-full border border-gray-300 dark:border-gray-600 dark:bg-gray-700 dark:text-white rounded-lg px-3 py-2 focus:outline-none focus:ring-2 focus:ring-green-500 resize-none text-sm"></textarea>
+                </div>
+                <div class="bg-blue-50 dark:bg-gray-700 rounded-xl p-3 flex gap-2">
+                    <i class="fas fa-info-circle text-blue-500 mt-0.5 flex-shrink-0"></i>
+                    <p class="text-xs text-blue-700 dark:text-blue-300">
+                        Al confirmar se abrirá WhatsApp con tu pedido listo. Ahí podrás <strong>adjuntar tu foto o diseño</strong> directamente en el chat.
+                    </p>
                 </div>
             </div>
             <div class="flex gap-3 mt-5">
